@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.7",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.46",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -10,15 +13,22 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "copy-to-clipboard": "^3.3.1",
+    "followtx": "^0.2.0",
+    "material-ui-popup-state": "^1.5.3",
+    "notistack": "^0.9.9",
     "react": "^16.13.1",
+    "react-blockies": "^1.4.1",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "web3": "^1.2.6",
+    "web3-utils": "^1.2.6"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
