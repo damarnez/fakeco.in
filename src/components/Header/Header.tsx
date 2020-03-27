@@ -6,7 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Wallets from "./Header.Wallets";
-import RootContext from "../../context";
+import NetworkMessage from "./Header.Network";
+import context from "../../context";
 import Blockies from "react-blockies";
 
 const useStyles = makeStyles(theme => ({
@@ -34,9 +35,9 @@ const Header = (props: any) => {
 
   // @ts-ignore
   const {
-    store: { address, open },
+    store: { address, open, networkId },
     actions: { setOpen }
-  }: any = useContext(RootContext);
+  }: any = useContext(context);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -67,7 +68,7 @@ const Header = (props: any) => {
       <AppBar position="fixed" color="transparent" className={classes.header}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            {props.network || "NO_NETWORK"}
+            {networkId === 42 ? "KOVAN" : ""}
           </Typography>
 
           <CheckLogin></CheckLogin>
@@ -79,6 +80,7 @@ const Header = (props: any) => {
         handleClose={handleClose}
         className={classes.wallet}
       />
+      <NetworkMessage />
     </>
   );
 };

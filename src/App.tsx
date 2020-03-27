@@ -8,7 +8,9 @@ import Me from "./components/Me";
 import Coins from "./components/Coins";
 import Footer from "./components/Footer";
 import Button from "@material-ui/core/Button";
+import useCheck from "./hooks/useCheck";
 import context from "./context";
+
 const useStyles: any = makeStyles({
   root: {
     "&::focus": {
@@ -33,10 +35,15 @@ const useStyles: any = makeStyles({
     background: "transparent"
   }
 });
+
 function App() {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
   const { followTx }: any = useContext(context);
+
+  //Strat the check of the connection
+  useCheck();
+
   useEffect(() => {
     followTx &&
       followTx
@@ -80,6 +87,7 @@ function App() {
           });
         });
   }, [followTx]);
+
   return (
     <div className={classes.root}>
       <Header />

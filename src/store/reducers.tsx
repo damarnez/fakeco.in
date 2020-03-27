@@ -1,4 +1,5 @@
 export default (state: any, action: any) => {
+  console.log(state);
   switch (action.type) {
     case "SET_CONTRACTS_DATA": {
       return {
@@ -37,6 +38,26 @@ export default (state: any, action: any) => {
         ...state,
         ...{
           open: action.data
+        }
+      };
+    }
+    case "SET_NETWORK": {
+      return {
+        ...state,
+        ...{
+          network: action.data.network,
+          networkId: action.data.networkId,
+          networkError: false
+        }
+      };
+    }
+    case "SET_NETWORK_ERROR": {
+      return {
+        ...state,
+        ...{
+          network: "",
+          networkId: 0,
+          networkError: true
         }
       };
     }

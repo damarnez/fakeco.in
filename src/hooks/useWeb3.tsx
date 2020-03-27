@@ -1,18 +1,21 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Web3 from "web3";
-import RootContext from "../context";
+import context from "../context";
 
 const useWeb3 = () => {
   const {
     store: { web3 },
-    actions: { setWeb3, setAddress }
-  }: any = useContext(RootContext);
+    actions: { setWeb3, setAddress, setNetworkId }
+  }: any = useContext(context);
 
   const enable = async () => {
     if (web3) {
       web3.currentProvider.enable();
+      web3.currentProvider.autoRefreshOnNetworkChange = false;
       const accounts = await web3.eth.getAccounts();
       if (accounts && accounts.length > 0) setAddress(accounts[0]);
+      const net = await web3.eth.net.getId();
+      setNetworkId(net);
     }
   };
 

@@ -45,7 +45,7 @@ const Content = () => {
   }: any = useContext(RootContext);
 
   const handleClickCoin = (name: string) => async () => {
-    console.log(name, web3);
+    console.log("COINS ----->> ", name, web3);
     if (web3 && address) {
       setLoading({ ...loading, ...{ [name]: true } });
       const coin: any = coins.filter(c => c.name === name).pop();
