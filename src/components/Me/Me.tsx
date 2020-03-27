@@ -8,7 +8,7 @@ import GithubIco from "../../icons/iconmonstr-github-3.svg";
 
 import EthIco from "../../icons/eth.svg";
 import Grid from "@material-ui/core/Grid";
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     textAlign: "left",
     paddingTop: "150px",
@@ -65,7 +65,10 @@ const useStyles = makeStyles({
   },
   grid: {
     display: "flex",
-    marginLeft: "50px"
+    marginLeft: "50px",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "0px"
+    }
   },
   icons: {
     color: "#8A94A7",
@@ -76,9 +79,14 @@ const useStyles = makeStyles({
     marginLeft: "10px",
     fontSize: "15px",
     bottom: "5px",
-    position: "relative"
+    position: "relative",
+    [theme.breakpoints.down("md")]: {
+      maxWidth: "230px",
+      overflow: "hidden",
+      display: "inline-flex"
+    }
   }
-});
+}));
 
 const Me = () => {
   const classes = useStyles();
@@ -86,14 +94,22 @@ const Me = () => {
     <section className={classes.root}>
       <Paper className={classes.card}>
         <Grid container className={classes.grid}>
-          <Grid key="avatar" item xs={3} className={classes.items}>
+          <Grid key="avatar" item xs={12} sm={3} className={classes.items}>
             <Avatar
               alt="Remy Sharp"
               src="https://damarnez.me/img/yo.jpg"
               className={classes.avatar}
             />
           </Grid>
-          <Grid key="desc" item xs={9} className={classes.items}>
+
+          <Grid
+            key="desc"
+            item
+            xs={12}
+            sm={9}
+            className={classes.items}
+            wrap="nowrap"
+          >
             <h3 className={classes.title}>Daniel Martín Jiménez</h3>
             <p className={classes.subtitle}>
               Senior Software and Blockchain Developer{" "}

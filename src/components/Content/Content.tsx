@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles({
+import Hidden from "@material-ui/core/Hidden";
+const useStyles = makeStyles(theme => ({
   root: {
     textAlign: "left",
     paddingTop: "130px",
@@ -13,9 +13,14 @@ const useStyles = makeStyles({
   },
   boxMessaage: {
     paddingRight: "64px",
-    minWidth: "552px",
     width: "552px",
-    display: "block"
+    minWidth: "552px",
+    display: "block",
+    [theme.breakpoints.down("md")]: {
+      width: "350px",
+      minWidth: "350px",
+      paddingRight: "0px"
+    }
   },
   title: {
     marginBottom: "22px",
@@ -33,7 +38,7 @@ const useStyles = makeStyles({
   image: {
     marginLeft: "20%"
   }
-});
+}));
 
 const Content = () => {
   const classes = useStyles();
@@ -45,9 +50,11 @@ const Content = () => {
           Earn Koban and Robsten stable coins to work in test environments
         </p>
       </div>
-      <div className={classes.image}>
-        <img src="/images/ethereum.png" width="300px"></img>
-      </div>
+      <Hidden mdDown>
+        <div className={classes.image}>
+          <img src="/images/ethereum.png" width="300px"></img>
+        </div>
+      </Hidden>
     </section>
   );
 };

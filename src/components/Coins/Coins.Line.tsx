@@ -3,12 +3,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import copy from "copy-to-clipboard";
 import { useSnackbar } from "notistack";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: {
     background: "#2C3039",
     borderRadius: 0,
@@ -26,7 +27,10 @@ const useStyles = makeStyles({
   },
   buttons: {
     float: "right",
-    height: "100%"
+    height: "100%",
+    [theme.breakpoints.down("md")]: {
+      width: "100%"
+    }
   },
   buttonProgress: {
     position: "absolute",
@@ -40,8 +44,12 @@ const useStyles = makeStyles({
     zIndex: 101,
     padding: "0px",
     margin: "0px",
-    height: "50px"
+    height: "50px",
+    [theme.breakpoints.down("md")]: {
+      overflow: "hidden"
+    }
   },
+
   h3: {
     fontSize: "32px",
     margin: "0px",
@@ -61,7 +69,7 @@ const useStyles = makeStyles({
     fontSize: "17px",
     marginRight: "15px"
   }
-});
+}));
 
 const Line = ({ data, onClickCoin, loading }: any) => {
   const classes = useStyles();
@@ -75,26 +83,62 @@ const Line = ({ data, onClickCoin, loading }: any) => {
   return (
     <Paper elevation={3} className={classes.card}>
       <Grid container className={classes.root}>
-        <Grid key={data.name + 1} item xs={1} className={classes.items}>
+        <Grid key={data.name + 1} item xs={6} sm={1} className={classes.items}>
           <img src={imgSrc} height="50" alt={data.name}></img>
         </Grid>
-        <Grid key={data.name + 2} item xs={1} className={classes.items}>
+        <Grid key={data.name + 2} item xs={6} sm={1} className={classes.items}>
           <h3 className={classes.h3}>{data.name}</h3>
         </Grid>
-        <Grid key={data.name + 3} item xs={8} className={classes.items}>
-          <span className={classes.span} onClick={handleCopy("address")}>
-            {data.address} <FileCopyIcon className={classes.icon} />
-          </span>
-          {"  "}
-          <span className={classes.span} onClick={handleCopy("abi")}>
-            ABI <FileCopyIcon className={classes.icon} />
-          </span>
-          {"  "}
-          <span className={classes.span} onClick={handleCopy("bytecode")}>
-            BYTECODE <FileCopyIcon className={classes.icon} />
-          </span>
-        </Grid>
-        <Grid key={data.name + 4} item xs={2} className={classes.items}>
+        <Hidden mdDown>
+          <Grid
+            key={data.name + 3}
+            item
+            xs={12}
+            sm={8}
+            className={classes.items}
+          >
+            <span className={classes.span} onClick={handleCopy("address")}>
+              {data.address} <FileCopyIcon className={classes.icon} />
+            </span>
+            {"  "}
+            <span className={classes.span} onClick={handleCopy("abi")}>
+              ABI <FileCopyIcon className={classes.icon} />
+            </span>
+            {"  "}
+            <span className={classes.span} onClick={handleCopy("bytecode")}>
+              BYTECODE <FileCopyIcon className={classes.icon} />
+            </span>
+          </Grid>
+        </Hidden>
+        <Hidden mdUp>
+          <Grid
+            key={data.name + 3}
+            item
+            xs={12}
+            sm={8}
+            className={classes.items}
+          >
+            <span className={classes.span} onClick={handleCopy("address")}>
+              {data.address} <FileCopyIcon className={classes.icon} />
+            </span>
+          </Grid>
+          <Grid
+            key={data.name + 3}
+            item
+            xs={12}
+            sm={8}
+            className={classes.items}
+          >
+            <span className={classes.span} onClick={handleCopy("abi")}>
+              ABI <FileCopyIcon className={classes.icon} />
+            </span>
+            {"  "}
+            <span className={classes.span} onClick={handleCopy("bytecode")}>
+              BYTECODE <FileCopyIcon className={classes.icon} />
+            </span>
+          </Grid>
+        </Hidden>
+        <Grid key={data.name + 4} item xs={12} sm={2} className={classes.items}>
           <Button
             variant="contained"
             color="primary"
