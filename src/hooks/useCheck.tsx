@@ -4,7 +4,6 @@ import context from "../context";
 
 const useWallet = () => {
   const {
-    store,
     store: { web3, networkId, address },
     actions: { setAddress, setNetworkId }
   }: any = useContext(context);
@@ -17,9 +16,10 @@ const useWallet = () => {
           setNetworkId(net);
         }
         const accounts = await web3.eth.getAccounts();
-        if (address && accounts.length > 0 && address !== accounts[0]) {
+        if (accounts && accounts.length > 0 && address !== accounts[0]) {
           setAddress(accounts[0]);
         }
+        console.log("CHECKING:", net, accounts);
       }
     } catch (error) {
       console.error("NO_NETWORK", error);

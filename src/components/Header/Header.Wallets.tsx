@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -6,6 +6,7 @@ import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import useWeb3 from "../../hooks/useWeb3";
+import context from "../../context";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -30,6 +31,10 @@ export default function TransitionsModal(props: any) {
   const classes = useStyles();
   const [ui, setUI] = useState("login");
   const { connect, enable, check } = useWeb3();
+  // @ts-ignore
+  const {
+    store: { address, web3, networkId }
+  }: any = useContext(context);
 
   useEffect(() => {
     if (!check()) {
@@ -40,13 +45,24 @@ export default function TransitionsModal(props: any) {
   const handleClickConnect = () => async () => {
     try {
       await connect();
-      return setUI("success");
     } catch (err) {
       await enable();
       return setUI("check_connection");
     }
   };
 
+  useEffect(() => {
+    if (!check()) {
+      setUI("no_wallet");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (web3) {
+      if (address) setUI("success");
+      else setUI("enable");
+    }
+  }, [web3, address]);
   const getSteps = () => {
     // eslint-disable-line
     switch (ui) {
@@ -82,6 +98,12 @@ export default function TransitionsModal(props: any) {
         return (
           <div className={classes.paper}>
             <h1>Success!</h1>You are connected!
+          </div>
+        );
+      case "enable":
+        return (
+          <div className={classes.paper}>
+            <h1>One more step</h1>Enable metamask
           </div>
         );
     }
