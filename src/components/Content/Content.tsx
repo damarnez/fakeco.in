@@ -47,7 +47,7 @@ const Content = () => {
       <div className={classes.boxMessaage}>
         <h1 className={classes.title}>FakeCoin</h1>
         <p className={classes.message}>
-          Earn Koban and Robsten stable coins to work in test environments
+          Get Kovan and Robsten stable coins to work in test environments
         </p>
       </div>
       <Hidden mdDown>
