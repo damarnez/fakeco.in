@@ -12,16 +12,6 @@ export default (dispatch: any, store: any) => {
   const setCheckBlockchain = (response: any) =>
     dispatch({ type: "SET_BLOCKCHAIN_CHECK", response });
 
-  const fetchContracts = async () => {
-    // try {
-    //   return dispatch({
-    //     type: "SET_CONTRACTS_DATA",
-    //     data: { "42": { Position, PositionDispacher } }
-    //   });
-    // } catch (error) {
-    //   return dispatch({ type: "ERROR_CONTRACTS_DATA" });
-    // }
-  };
   const setNetworkId = (networkId: number) => {
     if (Object.keys(EnabledNetworks).indexOf(networkId.toString()) > -1) {
       dispatch({
@@ -44,7 +34,6 @@ export default (dispatch: any, store: any) => {
     setOpen,
     setAddress,
     setNetworkId,
-    setCheckBlockchain,
-    fetchContracts
+    setCheckBlockchain
   };
 };
