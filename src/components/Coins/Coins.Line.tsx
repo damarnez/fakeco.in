@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -7,7 +7,10 @@ import Hidden from "@material-ui/core/Hidden";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import copy from "copy-to-clipboard";
 import { useSnackbar } from "notistack";
+import { toWei } from "web3-utils";
+import context from "../../context";
 
+import coins from "../../commons/coins.json";
 import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles(theme => ({
   card: {
@@ -71,15 +74,44 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Line = ({ data, onClickCoin, loading }: any) => {
+const Line = ({ data }: any) => {
   const classes = useStyles();
   const imgSrc = `/images/${data.img}`;
   const { enqueueSnackbar } = useSnackbar();
+  const [loading, setLoading]: any = useState();
+  const {
+    store: { web3, address },
+    actions: { setOpen },
+    followTx
+  }: any = useContext(context);
+
+  const handleClickCoin = (name: string) => async () => {
+    if (web3 && address) {
+      setLoading(true);
+      const coin: any = coins.filter(c => c.name === name).pop();
+      const coinInstance = new web3.eth.Contract(coin.abi, coin.address);
+      try {
+        const resp = await followTx.watchTx(
+          coinInstance.methods
+            .mintTokens(address, toWei("1000"))
+            .send({ from: address })
+        );
+        setLoading(false);
+        console.log("SUCCESS", resp);
+      } catch (error) {
+        setLoading(false);
+        console.error("TX ERROR : ", error);
+      }
+    } else {
+      setOpen(true);
+    }
+  };
 
   const handleCopy = (type: string) => () => {
     copy(type === "address" ? data[type] : JSON.stringify(data[type]));
     enqueueSnackbar("Copied! 🍆");
   };
+
   return (
     <Paper elevation={3} className={classes.card}>
       <Grid container className={classes.root}>
@@ -143,7 +175,7 @@ const Line = ({ data, onClickCoin, loading }: any) => {
             variant="contained"
             color="primary"
             className={classes.buttons}
-            onClick={onClickCoin(data.name)}
+            onClick={handleClickCoin(data.name)}
             disabled={loading}
           >
             Get Coins

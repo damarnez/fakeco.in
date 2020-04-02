@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { toWei } from "web3-utils";
-import Line from "./Coins.Line";
+
 import coins from "../../commons/coins.json";
-import RootContext from "../../context";
+import Line from "./Coins.Line";
+
 const useStyles = makeStyles({
   root: {
     textAlign: "left",
@@ -37,47 +37,11 @@ const useStyles = makeStyles({
 
 const Content = () => {
   const classes = useStyles();
-  const [loading, setLoading]: any = useState({});
-  const {
-    store: { web3, address },
-    actions: { setOpen },
-    followTx
-  }: any = useContext(RootContext);
-
-  const handleClickCoin = (name: string) => async () => {
-    console.log("COINS ----->> ", name, web3);
-    if (web3 && address) {
-      setLoading({ ...loading, ...{ [name]: true } });
-      const coin: any = coins.filter(c => c.name === name).pop();
-      const coinInstance = new web3.eth.Contract(coin.abi, coin.address);
-      try {
-        const resp = await followTx.watchTx(
-          coinInstance.methods
-            .mintTokens(address, toWei("1000"))
-            .send({ from: address })
-        );
-        setLoading({ ...loading, ...{ [name]: false } });
-        console.log("SUCCESS", resp);
-      } catch (error) {
-        setLoading({ ...loading, ...{ [name]: false } });
-        console.error("TX ERROR : ", error);
-      }
-    } else {
-      setOpen(true);
-    }
-  };
 
   return (
     <section className={classes.root}>
       {coins.map((data: any, i) => {
-        return (
-          <Line
-            data={data}
-            key={data.name + i}
-            onClickCoin={handleClickCoin}
-            loading={loading[data.name] ? loading[data.name] : false}
-          />
-        );
+        return <Line data={data} key={data.name + i} />;
       })}
     </section>
   );
