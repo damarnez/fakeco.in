@@ -77,7 +77,7 @@ const Line = ({ data, onClickCoin, loading }: any) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const handleCopy = (type: string) => () => {
-    copy(JSON.stringify(data[type]));
+    copy(type === "address" ? data[type] : JSON.stringify(data[type]));
     enqueueSnackbar("Copied! 🍆");
   };
   return (
