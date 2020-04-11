@@ -357,7 +357,7 @@ contract UpgradedStandardToken is StandardToken {
 
 
 contract TetherToken is Pausable, StandardToken, BlackList {
-    string public name = "USDT";
+    string public name = "Tether USD";
     string public symbol = "USDT";
     uint256 public decimals = 6;
     address public upgradedAddress;
