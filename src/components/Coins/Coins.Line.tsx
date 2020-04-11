@@ -7,12 +7,12 @@ import Hidden from "@material-ui/core/Hidden";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 import copy from "copy-to-clipboard";
 import { useSnackbar } from "notistack";
-import { toWei } from "web3-utils";
+import { toDecimal } from "../../utils";
 import context from "../../context";
 
 import coins from "../../commons/coins.json";
 import CircularProgress from "@material-ui/core/CircularProgress";
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     background: "#2C3039",
     borderRadius: 0,
@@ -20,27 +20,27 @@ const useStyles = makeStyles(theme => ({
     position: "relative",
     visibility: "visible",
     display: "flex",
-    zIndex: 101
+    zIndex: 101,
   },
   root: {
     flexGrow: 1,
     width: "100%",
     padding: "20px",
-    position: "relative"
+    position: "relative",
   },
   buttons: {
     float: "right",
     height: "100%",
     [theme.breakpoints.down("md")]: {
-      width: "100%"
-    }
+      width: "100%",
+    },
   },
   buttonProgress: {
     position: "absolute",
     top: "50%",
     left: "50%",
     marginTop: -12,
-    marginLeft: 30
+    marginLeft: 30,
   },
   items: {
     position: "relative",
@@ -49,15 +49,15 @@ const useStyles = makeStyles(theme => ({
     margin: "0px",
     height: "50px",
     [theme.breakpoints.down("md")]: {
-      overflow: "hidden"
-    }
+      overflow: "hidden",
+    },
   },
 
   h3: {
     fontSize: "32px",
     margin: "0px",
     paddingTop: "4px",
-    color: "#8A94A7"
+    color: "#8A94A7",
   },
   span: {
     fontSize: "20px",
@@ -65,13 +65,13 @@ const useStyles = makeStyles(theme => ({
     top: "10px",
     "&:hover": {
       color: "#4A61DD",
-      cursor: "pointer"
-    }
+      cursor: "pointer",
+    },
   },
   icon: {
     fontSize: "17px",
-    marginRight: "15px"
-  }
+    marginRight: "15px",
+  },
 }));
 
 const Line = ({ data }: any) => {
@@ -82,18 +82,18 @@ const Line = ({ data }: any) => {
   const {
     store: { web3, address },
     actions: { setOpen },
-    followTx
+    followTx,
   }: any = useContext(context);
 
   const handleClickCoin = (name: string) => async () => {
     if (web3 && address) {
       setLoading(true);
-      const coin: any = coins.filter(c => c.name === name).pop();
+      const coin: any = coins.filter((c) => c.name === name).pop();
       const coinInstance = new web3.eth.Contract(coin.abi, coin.address);
       try {
         const resp = await followTx.watchTx(
           coinInstance.methods
-            .mintTokens(address, toWei("1000"))
+            .mintTokens(address, toDecimal("1000", coin.decimals))
             .send({ from: address })
         );
         setLoading(false);
