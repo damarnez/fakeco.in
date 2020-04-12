@@ -1,12 +1,12 @@
 const initialState = {
-  address: null,
+  address: window.localStorage.getItem("eth_address") || null,
   error: "",
   contracts: null,
   web3: null,
   open: false,
   networkId: 0,
   network: "",
-  networkError: false
+  networkError: false,
 };
 
 export default initialState;

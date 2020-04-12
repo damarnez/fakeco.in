@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,25 +9,25 @@ import Wallets from "./Header.Wallets";
 import NetworkMessage from "./Header.Network";
 import context from "../../context";
 import Blockies from "react-blockies";
-
-const useStyles = makeStyles(theme => ({
+import { Link } from "react-router-dom";
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     zIndex: 100,
     "&::focus": {
-      outline: "none"
-    }
+      outline: "none",
+    },
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   header: {
-    boxShadow: "none"
+    boxShadow: "none",
   },
-  wallet: {}
+  wallet: {},
 }));
 
 const Header = (props: any) => {
@@ -36,7 +36,7 @@ const Header = (props: any) => {
   // @ts-ignore
   const {
     store: { address, open, networkId },
-    actions: { setOpen }
+    actions: { setOpen },
   }: any = useContext(context);
   const handleOpen = () => {
     setOpen(true);
@@ -70,8 +70,10 @@ const Header = (props: any) => {
           <Typography variant="h6" className={classes.title}>
             {networkId === 42 ? "KOVAN" : ""}
           </Typography>
-
-          <CheckLogin></CheckLogin>
+          <Button color="inherit" href="/interaction">
+            Contracts Interaction
+          </Button>
+          |<CheckLogin></CheckLogin>
         </Toolbar>
       </AppBar>
       <Wallets
@@ -80,6 +82,7 @@ const Header = (props: any) => {
         handleClose={handleClose}
         className={classes.wallet}
       />
+
       <NetworkMessage />
     </>
   );

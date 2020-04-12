@@ -101,15 +101,7 @@ const Me = () => {
               className={classes.avatar}
             />
           </Grid>
-
-          <Grid
-            key="desc"
-            item
-            xs={12}
-            sm={9}
-            className={classes.items}
-            wrap="nowrap"
-          >
+          <Grid key="desc" item xs={12} sm={9} className={classes.items}>
             <h3 className={classes.title}>Daniel Martín Jiménez</h3>
             <p className={classes.subtitle}>
               Senior Software and Blockchain Developer{" "}

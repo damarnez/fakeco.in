@@ -3,19 +3,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import Header from "./components/Header";
 import Container from "@material-ui/core/Container";
 import { useSnackbar } from "notistack";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Content from "./components/Content";
+import Contracts from "./components/Contracts";
 import Me from "./components/Me";
 import Coins from "./components/Coins";
 import Footer from "./components/Footer";
 import Button from "@material-ui/core/Button";
 import useCheck from "./hooks/useCheck";
 import context from "./context";
+import useWeb3 from "./hooks/useWeb3";
 
 const useStyles: any = makeStyles({
   root: {
     "&::focus": {
-      outline: "none"
-    }
+      outline: "none",
+    },
   },
   special: {
     content: "",
@@ -29,27 +32,35 @@ const useStyles: any = makeStyles({
     transformOrigin: 0,
     "-webkit-transform": "skewY(-12deg)",
     transform: "skewY(-12deg)",
-    zIndex: -1
+    zIndex: -1,
   },
   container: {
-    background: "transparent"
-  }
+    background: "transparent",
+  },
 });
 
 function App() {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
-  const { followTx }: any = useContext(context);
-
+  const {
+    followTx,
+    store: { address },
+  }: any = useContext(context);
+  const { connect } = useWeb3();
   //Strat the check of the connection
   useCheck();
+
+  // Try to reconnect
+  useEffect(() => {
+    address && connect();
+  }, [address]);
 
   useEffect(() => {
     followTx &&
       followTx
         .on("tx_start", () => {
           enqueueSnackbar("We start to transfer the coins ... 🙃 ", {
-            variant: "info"
+            variant: "info",
           });
         })
         .on("tx_finish", (tx: string) => {
@@ -66,7 +77,7 @@ function App() {
           );
           enqueueSnackbar("Success! enjoy your coins 😏 ", {
             action,
-            variant: "success"
+            variant: "success",
           });
         })
         .on("tx_error", (tx: string) => {
@@ -83,21 +94,35 @@ function App() {
           );
           enqueueSnackbar("Error! Something goes wrong 🤕 ", {
             action,
-            variant: "error"
+            variant: "error",
           });
         });
   }, [followTx]);
 
   return (
     <div className={classes.root}>
-      <Header />
-      <div className={classes.special}></div>
-      <Container className={classes.container}>
-        <Content />
-        <Coins />
-        <Me />
-        <Footer />
-      </Container>
+      <Router>
+        <Header />
+        <div className={classes.special}></div>
+        <Container className={classes.container}>
+          <Switch>
+            <Route path="/interaction">
+              <>
+                <Contracts />
+              </>
+            </Route>
+            <Route path="/">
+              <>
+                <Content />
+                <Coins />
+              </>
+            </Route>
+          </Switch>
+
+          <Me />
+          <Footer />
+        </Container>
+      </Router>
     </div>
   );
 }
