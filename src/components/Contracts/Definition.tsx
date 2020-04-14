@@ -55,7 +55,7 @@ const getAllStored = () => {
         prev.push(JSON.parse(localStorage.getItem(next)));
         return prev;
       } catch (error) {
-        localStorage.removeItem(next);
+        return localStorage.removeItem(next);
       }
     }, []);
 };

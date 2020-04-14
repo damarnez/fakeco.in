@@ -9,7 +9,7 @@ import Wallets from "./Header.Wallets";
 import NetworkMessage from "./Header.Network";
 import context from "../../context";
 import Blockies from "react-blockies";
-import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,

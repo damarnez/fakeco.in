@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "left",
     paddingTop: "130px",
@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     background: "transparent",
     height: "100%",
     zIndex: 100,
-    display: "inline-flex"
+    display: "inline-flex",
   },
   boxMessaage: {
     paddingRight: "64px",
@@ -19,8 +19,8 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("md")]: {
       width: "350px",
       minWidth: "350px",
-      paddingRight: "0px"
-    }
+      paddingRight: "0px",
+    },
   },
   title: {
     marginBottom: "22px",
@@ -29,15 +29,15 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     fontSize: "60px",
     lineHeight: "54px",
-    letterSpacing: "0px"
+    letterSpacing: "0px",
   },
   message: {
     color: "#8A94A7",
-    fontSize: "1.5rem"
+    fontSize: "1.5rem",
   },
   image: {
-    marginLeft: "20%"
-  }
+    marginLeft: "20%",
+  },
 }));
 
 const Content = () => {
@@ -52,7 +52,7 @@ const Content = () => {
       </div>
       <Hidden mdDown>
         <div className={classes.image}>
-          <img src="/images/ethereum.png" width="300px"></img>
+          <img src="/images/ethereum.png" width="300px" alt="Ethereum"></img>
         </div>
       </Hidden>
     </section>

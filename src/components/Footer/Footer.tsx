@@ -1,15 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles({
   root: {
     marginBottom: "50px",
-    color: "#4A61DD"
+    color: "#4A61DD",
   },
   love: {
-    color: "#FF0000"
-  }
+    color: "#FF0000",
+  },
 });
 
 const Footer = () => {

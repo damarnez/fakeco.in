@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import context from "../../context";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
@@ -13,22 +13,22 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     boxShadow: "none",
     "&::focus": {
-      outline: "none"
-    }
+      outline: "none",
+    },
   },
   paper: {
     backgroundColor: "#4A61DD",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  }
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 export default function TransitionsModal(props: any) {
   const classes = useStyles();
   // @ts-ignore
   const {
-    store: { networkError }
+    store: { networkError },
   }: any = useContext(context);
   return (
     <>
@@ -40,7 +40,7 @@ export default function TransitionsModal(props: any) {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500
+          timeout: 500,
         }}
       >
         <Fade in={networkError}>

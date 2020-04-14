@@ -1,44 +1,43 @@
 export default (state: any, action: any) => {
-  console.log(state);
   switch (action.type) {
     case "SET_CONTRACTS_DATA": {
       return {
         ...state,
         ...{
-          contracts: action.data
-        }
+          contracts: action.data,
+        },
       };
     }
     case "SET_WEB3": {
       return {
         ...state,
         ...{
-          web3: action.data
-        }
+          web3: action.data,
+        },
       };
     }
     case "SET_ADDRESS": {
       return {
         ...state,
         ...{
-          address: action.data
-        }
+          address: action.data,
+        },
       };
     }
     case "SET_INSTANCE": {
       return {
         ...state,
         ...{
-          instances: action.data
-        }
+          instances: action.data,
+        },
       };
     }
     case "SET_OPEN": {
       return {
         ...state,
         ...{
-          open: action.data
-        }
+          open: action.data,
+        },
       };
     }
     case "SET_NETWORK": {
@@ -47,8 +46,8 @@ export default (state: any, action: any) => {
         ...{
           network: action.data.network,
           networkId: action.data.networkId,
-          networkError: false
-        }
+          networkError: false,
+        },
       };
     }
     case "SET_NETWORK_ERROR": {
@@ -57,8 +56,8 @@ export default (state: any, action: any) => {
         ...{
           network: "",
           networkId: 0,
-          networkError: true
-        }
+          networkError: true,
+        },
       };
     }
     default:

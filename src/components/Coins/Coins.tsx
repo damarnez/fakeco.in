@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import coins from "../../commons/coins.json";
@@ -26,13 +26,13 @@ const useStyles = makeStyles({
       "-webkit-transform": "translateX(-50%)",
       transform: "translateX(-50%)",
       backgroundImage: "url(./images/pricing-illustration.svg)",
-      zIndex: 0
-    }
+      zIndex: 0,
+    },
   },
   card: {
     background: "#2C3039",
-    borderRadius: 0
-  }
+    borderRadius: 0,
+  },
 });
 
 const Content = () => {

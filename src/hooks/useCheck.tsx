@@ -1,11 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import useInterval from "./useInterval";
 import context from "../context";
 
 const useWallet = () => {
   const {
     store: { web3, networkId, address },
-    actions: { setAddress, setNetworkId }
+    actions: { setAddress, setNetworkId },
   }: any = useContext(context);
 
   useInterval(async () => {

@@ -59,7 +59,7 @@ export let getItems = (type) => {
 
 export let getProperties = (abi) => {
   let properties = {};
-
+  // eslint-disable-next-line
   (abi.inputs || []).map(({ name, type }) => {
     name = name === "" ? "default" : name;
     properties[name] = {

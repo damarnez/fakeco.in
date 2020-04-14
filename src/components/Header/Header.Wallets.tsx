@@ -8,7 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import useWeb3 from "../../hooks/useWeb3";
 import context from "../../context";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
@@ -16,15 +16,15 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     boxShadow: "none",
     "&::focus": {
-      outline: "none"
-    }
+      outline: "none",
+    },
   },
   paper: {
     backgroundColor: "#4A61DD",
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  }
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 export default function TransitionsModal(props: any) {
@@ -33,14 +33,14 @@ export default function TransitionsModal(props: any) {
   const { connect, enable, check } = useWeb3();
   // @ts-ignore
   const {
-    store: { address, web3, networkId }
+    store: { address, web3 },
   }: any = useContext(context);
 
   useEffect(() => {
     if (!check()) {
       setUI("no_wallet");
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   const handleClickConnect = () => async () => {
     try {
@@ -50,12 +50,6 @@ export default function TransitionsModal(props: any) {
       return setUI("check_connection");
     }
   };
-
-  useEffect(() => {
-    if (!check()) {
-      setUI("no_wallet");
-    }
-  }, []);
 
   useEffect(() => {
     if (web3) {
@@ -88,7 +82,11 @@ export default function TransitionsModal(props: any) {
           <div className={classes.paper}>
             <p>
               <h1>Ops!</h1>No wallet found, please install{" "}
-              <a href="https://metamask.io/" target="_blank">
+              <a
+                href="https://metamask.io/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <b>METAMASK</b>
               </a>
             </p>
@@ -120,7 +118,7 @@ export default function TransitionsModal(props: any) {
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
-          timeout: 500
+          timeout: 500,
         }}
       >
         <Fade in={props.open}>{getSteps()}</Fade>

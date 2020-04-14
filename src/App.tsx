@@ -53,7 +53,7 @@ function App() {
   // Try to reconnect
   useEffect(() => {
     address && connect();
-  }, [address]);
+  }, [address]); // eslint-disable-line
 
   useEffect(() => {
     followTx &&
@@ -97,7 +97,7 @@ function App() {
             variant: "error",
           });
         });
-  }, [followTx]);
+  }, [followTx]); // eslint-disable-line
 
   return (
     <div className={classes.root}>

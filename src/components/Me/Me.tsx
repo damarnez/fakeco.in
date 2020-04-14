@@ -108,7 +108,7 @@ const Me = () => {
             </p>
 
             <p>
-              <img src={LinkedinIco} className={classes.icons} />
+              <img src={LinkedinIco} className={classes.icons} alt="Linkedin" />
               <a
                 className={classes.links}
                 href="https://www.linkedin.com/in/damarnez/"
@@ -117,19 +117,23 @@ const Me = () => {
               </a>
             </p>
             <p>
-              <img src={LinkIco} className={classes.icons} />
+              <img
+                src={LinkIco}
+                className={classes.icons}
+                alt="Personal webpage"
+              />
               <a className={classes.links} href="https://damarnez.me/">
                 https://damarnez.me
               </a>
             </p>
             <p>
-              <img src={GithubIco} className={classes.icons} />
+              <img src={GithubIco} className={classes.icons} alt="Github" />
               <a className={classes.links} href="https://github.com/damarnez">
                 https://github.com/damarnez
               </a>
             </p>
             <p>
-              <img src={EthIco} className={classes.icons} />
+              <img src={EthIco} className={classes.icons} alt="Ethereum" />
               <span className={classes.links}>Tip me at : damarnez.eth</span>
             </p>
           </Grid>

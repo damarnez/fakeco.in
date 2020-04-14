@@ -5,7 +5,7 @@ import context from "../context";
 const useWeb3 = () => {
   const {
     store: { web3 },
-    actions: { setWeb3, setAddress, setNetworkId }
+    actions: { setWeb3, setAddress, setNetworkId },
   }: any = useContext(context);
 
   const enable = async () => {
@@ -41,7 +41,7 @@ const useWeb3 = () => {
       window.instance = web3;
       enable();
     }
-  }, [web3]);
+  }, [web3]); // eslint-disable-line
 
   return { connect, enable, check };
 };
