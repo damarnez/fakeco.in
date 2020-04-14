@@ -63,8 +63,8 @@ const Generator = ({ jsonAbi, address }: any) => {
   const [contract, setContract]: any = useState();
 
   useEffect(() => {
-    web3 && setContract(new web3.eth.Contract(jsonAbi, address));
-  }, [web3]); // eslint-disable-line
+    web3 && jsonAbi && setContract(new web3.eth.Contract(jsonAbi, address));
+  }, [web3, jsonAbi, address]); // eslint-disable-line
 
   const handleOnchange = (data: any) => {
     setValue({ [data.schema.title]: data.formData });
