@@ -64,7 +64,7 @@ const Generator = ({ jsonAbi, address }: any) => {
 
   useEffect(() => {
     web3 && setContract(new web3.eth.Contract(jsonAbi, address));
-  }, [web3, jsonAbi, address]);
+  }, [web3]); // eslint-disable-line
 
   const handleOnchange = (data: any) => {
     setValue({ [data.schema.title]: data.formData });
@@ -73,16 +73,18 @@ const Generator = ({ jsonAbi, address }: any) => {
   const handleInteraction = (schema: any) => async () => {
     // Check if we have connection
     if (!web3) return setOpen(true);
-
-    const interaction = contract.methods[schema.title];
+    const instance = contract || new web3.eth.Contract(jsonAbi, address);
+    console.log(" METHOD : ", schema.title, " MOTHODS : ", instance.methods);
+    const interaction = instance.methods[schema.title];
     let resp;
 
     try {
       const arrayParams = schema.required.reduce((prev: any, next: any) => {
-        return [...prev, value[schema.title][next]];
+        return [...prev, value[schema.title][next].toString()];
       }, []);
-
+      console.log("PARAMS : ", schema.stateMutability, arrayParams);
       if (schema.stateMutability === "view") {
+        console.log("CALL");
         resp = await interaction.apply(interaction, arrayParams).call({ from });
       } else {
         resp = await followTx.watchTx(
