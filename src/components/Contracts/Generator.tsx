@@ -83,9 +83,7 @@ const Generator = ({ jsonAbi, address }: any) => {
       }, []);
 
       if (schema.stateMutability === "view") {
-        resp = await followTx.watchTx(
-          interaction.apply(interaction, arrayParams).call({ from })
-        );
+        resp = await interaction.apply(interaction, arrayParams).call({ from });
       } else {
         resp = await followTx.watchTx(
           interaction.apply(interaction, arrayParams).send({ from })
@@ -95,6 +93,7 @@ const Generator = ({ jsonAbi, address }: any) => {
       console.error(error);
       resp = error.message;
     }
+    console.log("RESP:", resp);
     // Concat responses
     // @ts-ignore
     const respBeauty = beauty(resp, null, 2, 80);
